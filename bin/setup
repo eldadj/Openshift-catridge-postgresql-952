@@ -17,10 +17,22 @@ mkdir -p $tmp_dir
 cd $tmp_dir
 wget -c -O $ver.tar.bz2 http://ftp.postgresql.org/pub/source/v$ver/postgresql-$ver.tar.bz2
 
+"
+echo "downloading uuid"
+wget http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/uuid-1.6.2.tar.gz
+echo "building uuid"
+tar xaf uuid-1.6.2.tar.gz
+cd uuid-1.6.2
+uuid_dir=${OPENSHIFT_DATA_DIR%/}/uuid-1.6.2
+./configure --prefix=${OPENSHIFT_DATA_DIR%/}/uuid-1.6.2
+make
+make install
+"
+
 echo "building postgresql..."
 tar xaf $ver.tar.bz2
 cd postgresql-$ver
-./configure --prefix=/usr --disable-nls --enable-thread-safety --with-ossp-uuid
+./configure --prefix=/usr --disable-nls --enable-thread-safety --with-ossp-uuid with-includes=${OPENSHIFT_DATA_DIR%/}/uuid-1.6.2/include --with-libraries=${OPENSHIFT_DATA_DIR%/}/uuid-1.6.2/lib
 make -C src all
 make -C contrib all
 
