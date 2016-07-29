@@ -71,7 +71,7 @@ else
 fi
 
 dbname=$username
-if [ -z "${OPENSHIFT_PG_PORT-}" ]; then
+if [ -z "${OPENSHIFT_PG_PORT-}" ]; then 
     host=
     port=$OPENSHIFT_PG_PRIVATE_PORT
     dburl=
