@@ -20,7 +20,7 @@ wget -c -O $ver.tar.bz2 http://ftp.postgresql.org/pub/source/v$ver/postgresql-$v
 echo "building postgresql..."
 tar xaf $ver.tar.bz2
 cd postgresql-$ver
-./configure --prefix=/usr --disable-nls --enable-thread-safety
+./configure --prefix=/usr --disable-nls --enable-thread-safety --with-ossp-uuid
 make -C src all
 make -C contrib all
 
